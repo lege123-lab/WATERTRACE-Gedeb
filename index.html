@@ -47,27 +47,59 @@ textarea{min-height:85px;resize:vertical}
 <header>
  <div class="top">
   <div><div class="logo">WATER<span>TRACE</span></div><div class="tagline">GEDEB WATER MONITORING SYSTEM</div></div>
-  <div class="pill">PROTOTYPE 4.0</div>
+  <div class="pill">PROTOTYPE 5.0</div>
  </div>
- <div class="hero"><h1>የውሃ ነጥብ ክትትል ስርዓት</h1><p>የውሃ ችግርን በፍጥነት እናሳውቅ።<br>የጥገና ሂደትን እንከታተል።</p></div>
+ <div class="hero"><h1>የውሃ ችግር ክትትል ስርዓት</h1><p>የውሃ ችግርን በፍጥነት እናሳውቅ።<br>የጥገና ሂደትን እንከታተል።</p></div>
 </header>
 
 <main class="container">
 <section id="publicSection">
  <div class="section-title">💧 የሕዝብ አገልግሎት</div>
- <div class="notice">የውሃ ችግር ካጋጠመህ ከታች ባለው ቅጽ ለውሃ ቢሮ ሪፖርት ማቅረብ ትችላለህ። መለያ መፍጠር አያስፈልግም።</div>
- <div class="card"><h3>የውሃ ነጥቦች ዝርዝር</h3><div id="publicPoints"><div class="empty">መረጃ እየተጫነ ነው...</div></div></div>
+ <div class="notice">የውሃ ችግር ካጋጠመህ ከታች ባለው ቅጽ ለውሃ ቢሮ ሪፖርት ማቅረብ ትችላለህ። መለያ መፍጠር አያስፈልግም። የችግሩን ቦታ በትክክል ግለጽ።</div>
  <div class="card">
   <h3>የውሃ ችግር ሪፖርት አቅርብ</h3>
   <form id="publicReportForm">
-   <label>የውሃ ነጥብ</label><select id="publicPoint" required><option value="">የውሃ ነጥብ ምረጥ</option></select>
    <label>የችግሩ አይነት</label>
    <select id="publicIssue" required>
-    <option value="ውሃ ፈጽሞ የለም">ውሃ ፈጽሞ የለም</option><option value="የፓምፕ ብልሽት">የፓምፕ ብልሽት</option><option value="ደካማ የውሃ ፍሰት">ደካማ የውሃ ፍሰት</option><option value="የቧንቧ መሰበር">የቧንቧ መሰበር</option><option value="የውሃ ጥራት ጥርጣሬ">የውሃ ጥራት ጥርጣሬ</option><option value="ሌላ">ሌላ</option>
+    <option value="ውሃ ፈጽሞ የለም">ውሃ ፈጽሞ የለም</option>
+    <option value="የፓምፕ ብልሽት">የፓምፕ ብልሽት</option>
+    <option value="ደካማ የውሃ ፍሰት">ደካማ የውሃ ፍሰት</option>
+    <option value="የቧንቧ መሰበር">የቧንቧ መሰበር</option>
+    <option value="የውሃ ጥራት ጥርጣሬ">የውሃ ጥራት ጥርጣሬ</option>
+    <option value="ሌላ">ሌላ</option>
    </select>
-   <label>አስቸኳይነት</label><select id="publicPriority"><option value="high">ከፍተኛ</option><option value="medium" selected>መካከለኛ</option><option value="low">ዝቅተኛ</option></select>
-   <label>የችግሩ መግለጫ</label><textarea id="publicDescription" required minlength="5" placeholder="ችግሩን በዝርዝር ግለጽ..."></textarea>
-   <label>ስም (አማራጭ)</label><input id="publicReporter" maxlength="80" placeholder="ስም">
+
+   <label>አስቸኳይነት</label>
+   <select id="publicPriority">
+    <option value="high">ከፍተኛ</option>
+    <option value="medium" selected>መካከለኛ</option>
+    <option value="low">ዝቅተኛ</option>
+   </select>
+
+   <label>ቀበሌ / አካባቢ</label>
+   <input id="publicKebele" required maxlength="100" placeholder="የቀበሌውን ስም ያስገቡ">
+
+   <label>የመንደር ስም</label>
+   <input id="publicVillage" required maxlength="100" placeholder="የመንደሩን ስም ያስገቡ">
+
+   <label>ትክክለኛ የቦታ መግለጫ</label>
+   <textarea id="publicLocation" required minlength="5" maxlength="500" placeholder="ለምሳሌ፦ ከትምህርት ቤቱ በስተምሥራቅ፣ ከገበያው አጠገብ፣ በቤት ቁጥር..."></textarea>
+
+   <label>የቧንቧው / የውሃ አገልግሎቱ አይነት</label>
+   <select id="publicPipeType" required>
+    <option value="የሕዝብ ቧንቧ">የሕዝብ ቧንቧ</option>
+    <option value="የግል ቧንቧ">የግል ቧንቧ</option>
+    <option value="የተቋም ቧንቧ">የተቋም ቧንቧ</option>
+    <option value="የፓምፕ ወይም ሌላ ምንጭ">የፓምፕ ወይም ሌላ ምንጭ</option>
+    <option value="አላውቅም">አላውቅም</option>
+   </select>
+
+   <label>የችግሩ መግለጫ</label>
+   <textarea id="publicDescription" required minlength="5" maxlength="1500" placeholder="ችግሩ መቼ እንደተጀመረና ሌላ ዝርዝር በግልጽ ግለጽ..."></textarea>
+
+   <label>ስም (አማራጭ)</label>
+   <input id="publicReporter" maxlength="80" placeholder="ስም">
+
    <button class="primary" id="publicSubmit" type="submit">ሪፖርት ላክ</button>
   </form>
   <div id="publicMessage" class="connection">ሪፖርትህ ለውሃ ቢሮ ይደርሳል።</div>
@@ -91,9 +123,9 @@ textarea{min-height:85px;resize:vertical}
   <div class="row"><div><strong id="roleTitle">የቢሮ መለያ</strong><div class="muted" id="staffEmail"></div></div><button class="secondary danger" id="logoutButton">ውጣ</button></div>
   <div id="syncMessage" class="connection">Firebase...</div>
  </div>
+
  <nav class="tabs">
   <button class="tab active" data-page="dashboard">ዋና ገጽ</button>
-  <button class="tab" data-page="points">የውሃ ነጥቦች</button>
   <button class="tab" data-page="reports">ሪፖርቶች</button>
   <button class="tab" data-page="history">የጥገና ታሪክ</button>
   <button class="tab" data-page="account">የመለያ ቅንብር</button>
@@ -102,37 +134,36 @@ textarea{min-height:85px;resize:vertical}
 
  <section id="dashboard" class="page">
   <div class="stats">
-   <div class="stat">💧<div class="number" id="totalPoints">0</div><small>ጠቅላላ ነጥቦች</small></div>
-   <div class="stat">🟢<div class="number" id="workingPoints">0</div><small>በሥራ ላይ</small></div>
-   <div class="stat">🔴<div class="number" id="brokenPoints">0</div><small>ችግር ያለባቸው</small></div>
-   <div class="stat">📋<div class="number" id="openReports">0</div><small>ያልተጠናቀቁ</small></div>
+   <div class="stat">📋<div class="number" id="totalReports">0</div><small>ጠቅላላ ሪፖርቶች</small></div>
+   <div class="stat">🆕<div class="number" id="newReports">0</div><small>አዲስ ሪፖርቶች</small></div>
+   <div class="stat">🔧<div class="number" id="repairReports">0</div><small>በጥገና ላይ</small></div>
+   <div class="stat">✅<div class="number" id="fixedReports">0</div><small>የተጠናቀቁ</small></div>
   </div>
-  <div class="section-title">የስርዓቱ አጠቃላይ ሁኔታ</div><div class="card"><h3>WATERTRACE Overview</h3><div id="overviewText" class="muted"></div></div>
-  <div class="section-title">የቅርብ ጊዜ ሪፖርቶች</div><div id="recentReports"></div>
- </section>
-
- <section id="points" class="page hidden">
-  <div class="section-title">የውሃ ነጥቦች</div>
-  <div class="card adminOnly">
-   <h3>አዲስ የውሃ ነጥብ መመዝገብ</h3>
-   <form id="pointForm">
-    <label>የውሃ ነጥብ ስም / መለያ</label><input id="pointName" required placeholder="ለምሳሌ WP-001">
-    <label>ቀበሌ / አካባቢ</label><input id="pointArea" required placeholder="የአካባቢው ስም">
-    <label>የውሃ ነጥብ አይነት</label><select id="pointType"><option>የእጅ ፓምፕ</option><option>የኤሌክትሪክ ፓምፕ</option><option>የሕዝብ ቧንቧ</option><option>የውሃ ታንከር</option><option>ሌላ</option></select>
-    <label>የአሁኑ ሁኔታ</label><select id="pointStatus"><option value="working">በሥራ ላይ</option><option value="broken">ተበላሽቷል</option><option value="unknown">አልተረጋገጠም</option></select>
-    <button class="primary" type="submit">የውሃ ነጥቡን መዝግብ</button>
-   </form>
-  </div>
-  <div id="pointsList"></div>
+  <div class="section-title">የስርዓቱ አጠቃላይ ሁኔታ</div>
+  <div class="card"><h3>WATERTRACE Overview</h3><div id="overviewText" class="muted"></div></div>
+  <div class="section-title">የቅርብ ጊዜ ሪፖርቶች</div>
+  <div id="recentReports"></div>
  </section>
 
  <section id="reports" class="page hidden">
   <div class="section-title">የችግር ሪፖርቶች</div>
-  <div class="card"><label>በሁኔታ ማጣራት</label><select id="filterStatus"><option value="all">ሁሉንም አሳይ</option><option value="new">አዲስ</option><option value="checking">በምርመራ ላይ</option><option value="repair">በጥገና ላይ</option><option value="fixed">ተጠግኗል</option></select></div>
+  <div class="card">
+   <label>በሁኔታ ማጣራት</label>
+   <select id="filterStatus">
+    <option value="all">ሁሉንም አሳይ</option>
+    <option value="new">አዲስ</option>
+    <option value="checking">በምርመራ ላይ</option>
+    <option value="repair">በጥገና ላይ</option>
+    <option value="fixed">ተጠግኗል</option>
+   </select>
+  </div>
   <div id="reportsList"></div>
  </section>
 
- <section id="history" class="page hidden"><div class="section-title">የጥገና ታሪክ</div><div id="historyList"></div></section>
+ <section id="history" class="page hidden">
+  <div class="section-title">የጥገና ታሪክ</div>
+  <div id="historyList"></div>
+ </section>
 
  <section id="account" class="page hidden">
   <div class="section-title">የመለያ ቅንብር</div>
@@ -166,7 +197,11 @@ textarea{min-height:85px;resize:vertical}
    <form id="staffForm">
     <label>የሠራተኛ UID</label><input id="staffUid" required placeholder="Firebase Authentication UID">
     <label>ስም</label><input id="staffName" required placeholder="የሠራተኛው ስም">
-    <label>የሥራ ሚና</label><select id="staffRole"><option value="staff">የቴክኒክ ባለሙያ</option><option value="manager">የውሃ ቢሮ ኃላፊ</option></select>
+    <label>የሥራ ሚና</label>
+    <select id="staffRole">
+     <option value="staff">የቴክኒክ ባለሙያ</option>
+     <option value="manager">የውሃ ቢሮ ኃላፊ</option>
+    </select>
     <button class="primary" type="submit">ፈቃድ ስጥ</button>
    </form>
    <div id="staffMessage" class="connection">የሠራተኛውን UID በትክክል አረጋግጥ።</div>
@@ -175,7 +210,7 @@ textarea{min-height:85px;resize:vertical}
  </section>
 </section>
 
-<div class="footer">WATERTRACE – GEDEB<br>Smart Water-Point Monitoring &amp; Maintenance<br>Prototype 4.0</div>
+<div class="footer">WATERTRACE – GEDEB<br>Smart Water Problem Reporting &amp; Maintenance<br>Prototype 5.0</div>
 </main>
 
 <script type="module">
@@ -200,7 +235,7 @@ const firebaseConfig={
 };
 const ADMIN_UID="sOVUaoNANTMKKRrCiLlG9rhhiKW2";
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
-let currentUser=null,currentRole="public",points=[],reports=[],staffMembers=[];
+let currentUser=null,currentRole="public",reports=[],staffMembers=[];
 const statusNames={new:"አዲስ",checking:"በምርመራ ላይ",repair:"በጥገና ላይ",fixed:"ተጠግኗል"};
 const statusClass={new:"bad",checking:"info",repair:"wait",fixed:"good"};
 const el=id=>document.getElementById(id);
@@ -208,63 +243,101 @@ const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&
 function msg(id,text,type=""){el(id).textContent=text;el(id).className="connection "+type;}
 function dateText(v){if(!v)return "ቀን የለም";let d=v.toDate?v.toDate():new Date(v);return isNaN(d.getTime())?"ቀን የለም":d.toLocaleString("am-ET");}
 function isAdmin(){return currentRole==="admin";}
-function normalizePoint(id,d){return{id,name:d.name||d.point_id||"ያልተሰየመ ነጥብ",area:d.area||d.location||"አካባቢ አልተገለጸም",type:d.type||"አልተገለጸም",status:d.status||"unknown",createdAt:d.createdAt||d.created_at||new Date().toISOString()};}
-function normalizeReport(id,d){return{id,pointId:d.pointId||d.point_id||"",pointName:d.pointName||d.point_name||d.point_id||"ያልታወቀ ነጥብ",issue:d.issue||d.problem_type||"ያልተገለጸ ችግር",priority:d.priority||"medium",description:d.description||"",reporter:d.reporter||"",status:d.status||"new",createdAt:d.createdAt||d.created_at||new Date().toISOString(),updatedAt:d.updatedAt||d.updated_at||d.createdAt||new Date().toISOString()};}
-
+function normalizeReport(id,d){
+ return{
+  id,
+  issue:d.issue||d.problem_type||"ያልተገለጸ ችግር",
+  priority:d.priority||"medium",
+  kebele:d.kebele||"",
+  village:d.village||"",
+  locationDescription:d.locationDescription||"",
+  pipeType:d.pipeType||"",
+  description:d.description||"",
+  reporter:d.reporter||"",
+  status:d.status||"new",
+  createdAt:d.createdAt||d.created_at||new Date().toISOString(),
+  updatedAt:d.updatedAt||d.updated_at||d.createdAt||new Date().toISOString()
+ };
+}
 function showRoleUI(){
  el("publicSection").classList.remove("hidden");
  el("loginSection").classList.toggle("hidden",!!currentUser);
  el("appSection").classList.toggle("hidden",!currentUser);
  document.querySelectorAll(".adminOnly").forEach(n=>n.classList.toggle("hidden",!isAdmin()));
- if(currentUser){el("staffEmail").textContent=currentUser.email||"";el("roleTitle").textContent=isAdmin()?"የቴክኒክ ባለቤት / ዋና አስተዳዳሪ":currentRole==="manager"?"የውሃ ቢሮ ኃላፊ":"የቴክኒክ ባለሙያ";}
-}
-async function loadPublicPoints(){
- try{let s=await getDocs(collection(db,"water_points"));points=s.docs.map(d=>normalizePoint(d.id,d.data()));renderPublicPoints();renderPoints();}
- catch(e){console.error(e);el("publicPoints").innerHTML='<div class="empty">የውሃ ነጥቦችን ማምጣት አልተቻለም።</div>';msg("publicMessage","የውሃ ነጥቦችን ማምጣት አልተቻለም። "+e.code,"error");}
-}
-function renderPublicPoints(){
- if(!points.length){el("publicPoints").innerHTML='<div class="empty">የተመዘገበ የውሃ ነጥብ የለም።</div>';el("publicPoint").innerHTML='<option value="">የውሃ ነጥብ አልተገኘም</option>';return;}
- el("publicPoints").innerHTML=points.map(p=>{let label=p.status==="working"?"በሥራ ላይ":p.status==="broken"?"ችግር አለ":"አልተረጋገጠም";return `<div class="card"><strong>${esc(p.name)}</strong><div class="muted">📍 ${esc(p.area)} · ${esc(p.type)}</div><span class="badge ${p.status==="working"?"good":p.status==="broken"?"bad":"wait"}">${label}</span></div>`;}).join("");
- el("publicPoint").innerHTML='<option value="">የውሃ ነጥብ ምረጥ</option>'+points.map(p=>`<option value="${esc(p.id)}">${esc(p.name)} - ${esc(p.area)}</option>`).join("");
+ if(currentUser){
+  el("staffEmail").textContent=currentUser.email||"";
+  el("roleTitle").textContent=isAdmin()?"የቴክኒክ አስተዳዳሪ":currentRole==="manager"?"የውሃ ቢሮ ኃላፊ":"የቴክኒክ ባለሙያ";
+ }
 }
 
 el("publicReportForm").addEventListener("submit",async e=>{
- e.preventDefault();let b=el("publicSubmit"),p=points.find(x=>x.id===el("publicPoint").value),description=el("publicDescription").value.trim();
- if(!p){msg("publicMessage","እባክህ የውሃ ነጥብ ምረጥ።","error");return;}
- if(description.length<5){msg("publicMessage","የችግሩን መግለጫ በትንሹ 5 ፊደላት ጻፍ።","error");return;}
+ e.preventDefault();
+ let b=el("publicSubmit");
+ let kebele=el("publicKebele").value.trim();
+ let village=el("publicVillage").value.trim();
+ let locationDescription=el("publicLocation").value.trim();
+ let description=el("publicDescription").value.trim();
+ if(!kebele||!village||locationDescription.length<5||description.length<5){
+  msg("publicMessage","እባክህ ቀበሌ፣ መንደር፣ ቦታና የችግር መግለጫ በትክክል ሙላ።","error");return;
+ }
  b.disabled=true;b.textContent="እየተላከ ነው...";
  try{
   let now=new Date().toISOString();
-  let data={pointId:p.id,pointName:p.name,issue:el("publicIssue").value,priority:el("publicPriority").value,description,reporter:el("publicReporter").value.trim(),status:"new",createdAt:now,updatedAt:now};
-  let r=await addDoc(collection(db,"reports"),data);e.target.reset();
+  let data={
+   issue:el("publicIssue").value,
+   priority:el("publicPriority").value,
+   kebele,village,locationDescription,
+   pipeType:el("publicPipeType").value,
+   description,
+   reporter:el("publicReporter").value.trim(),
+   status:"new",createdAt:now,updatedAt:now
+  };
+  let r=await addDoc(collection(db,"reports"),data);
+  e.target.reset();
   msg("publicMessage","ሪፖርትህ ተልኳል። የሪፖርት መለያ፦ "+r.id,"success");
- }catch(err){console.error(err);msg("publicMessage","ሪፖርቱን መላክ አልተቻለም። "+err.code,"error");}
- finally{b.disabled=false;b.textContent="ሪፖርት ላክ";}
+ }catch(err){
+  console.error(err);msg("publicMessage","ሪፖርቱን መላክ አልተቻለም። "+err.code,"error");
+ }finally{
+  b.disabled=false;b.textContent="ሪፖርት ላክ";
+ }
 });
 
 el("loginForm").addEventListener("submit",async e=>{
  e.preventDefault();let b=el("loginButton");b.disabled=true;b.textContent="እየገባ ነው...";
- try{await signInWithEmailAndPassword(auth,el("loginEmail").value.trim(),el("loginPassword").value);}
- catch(err){msg("loginMessage","መግባት አልተቻለም። ኢሜይልና የይለፍ ቃል አረጋግጥ። "+err.code,"error");}
- finally{b.disabled=false;b.textContent="የቢሮ መግቢያ";}
+ try{
+  await signInWithEmailAndPassword(auth,el("loginEmail").value.trim(),el("loginPassword").value);
+ }catch(err){
+  msg("loginMessage","መግባት አልተቻለም። ኢሜይልና የይለፍ ቃል አረጋግጥ። "+err.code,"error");
+ }finally{
+  b.disabled=false;b.textContent="የቢሮ መግቢያ";
+ }
 });
 el("forgotPassword").addEventListener("click",async()=>{
- let email=el("loginEmail").value.trim();if(!email){msg("loginMessage","መጀመሪያ ኢሜይልህን አስገባ።","error");return;}
- try{await sendPasswordResetEmail(auth,email);msg("loginMessage","የይለፍ ቃል መመለሻ ሊንክ በኢሜይልህ ተልኳል።","success");}
- catch(e){msg("loginMessage","ሊንኩን መላክ አልተቻለም። "+e.code,"error");}
+ let email=el("loginEmail").value.trim();
+ if(!email){msg("loginMessage","መጀመሪያ ኢሜይልህን አስገባ።","error");return;}
+ try{
+  await sendPasswordResetEmail(auth,email);
+  msg("loginMessage","የይለፍ ቃል መመለሻ ሊንክ በኢሜይልህ ተልኳል።","success");
+ }catch(e){msg("loginMessage","ሊንኩን መላክ አልተቻለም። "+e.code,"error");}
 });
 el("logoutButton").addEventListener("click",()=>signOut(auth));
 
 onAuthStateChanged(auth,async user=>{
  currentUser=user;currentRole="public";
- if(!user){reports=[];staffMembers=[];showRoleUI();await loadPublicPoints();return;}
+ if(!user){reports=[];staffMembers=[];showRoleUI();return;}
  if(user.uid===ADMIN_UID){currentRole="admin";}
  else{
   try{
    let s=await getDoc(doc(db,"staff_users",user.uid));
-   if(s.exists()&&s.data().active===true&&["staff","manager"].includes(s.data().role)){currentRole=s.data().role;}
-   else{await signOut(auth);msg("loginMessage","ይህ መለያ የቢሮ ፈቃድ የለውም።","error");return;}
-  }catch(e){console.error(e);await signOut(auth);msg("loginMessage","የሠራተኛ ፈቃድን ማረጋገጥ አልተቻለም። "+e.code,"error");return;}
+   if(s.exists()&&s.data().active===true&&["staff","manager"].includes(s.data().role)){
+    currentRole=s.data().role;
+   }else{
+    await signOut(auth);msg("loginMessage","ይህ መለያ የቢሮ ፈቃድ የለውም።","error");return;
+   }
+  }catch(e){
+   console.error(e);await signOut(auth);
+   msg("loginMessage","የሠራተኛ ፈቃድን ማረጋገጥ አልተቻለም። "+e.code,"error");return;
+  }
  }
  showRoleUI();await loadStaffData();
 });
@@ -272,14 +345,18 @@ onAuthStateChanged(auth,async user=>{
 async function loadStaffData(){
  msg("syncMessage","Firebase መረጃዎችን እያመጣ ነው...");
  try{
-  let [ps,rs]=await Promise.all([getDocs(collection(db,"water_points")),getDocs(collection(db,"reports"))]);
-  points=ps.docs.map(d=>normalizePoint(d.id,d.data()));reports=rs.docs.map(d=>normalizeReport(d.id,d.data()));
+  let rs=await getDocs(collection(db,"reports"));
+  reports=rs.docs.map(d=>normalizeReport(d.id,d.data()));
   if(isAdmin())await loadStaffMembers();
-  render();renderPublicPoints();msg("syncMessage","Firebase በተሳካ ሁኔታ ተገናኝቷል።","success");
- }catch(e){console.error(e);msg("syncMessage","መረጃዎችን ማምጣት አልተቻለም። "+e.code,"error");}
+  render();msg("syncMessage","Firebase በተሳካ ሁኔታ ተገናኝቷል።","success");
+ }catch(e){
+  console.error(e);msg("syncMessage","መረጃዎችን ማምጣት አልተቻለም። "+e.code,"error");
+ }
 }
 async function loadStaffMembers(){
- let s=await getDocs(collection(db,"staff_users"));staffMembers=s.docs.map(d=>({uid:d.id,...d.data()}));renderStaff();
+ let s=await getDocs(collection(db,"staff_users"));
+ staffMembers=s.docs.map(d=>({uid:d.id,...d.data()}));
+ renderStaff();
 }
 function go(page){
  if(page==="staff"&&!isAdmin())return;
@@ -290,28 +367,18 @@ function go(page){
 }
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
 
-el("pointForm").addEventListener("submit",async e=>{
- e.preventDefault();if(!isAdmin())return;
- let name=el("pointName").value.trim(),area=el("pointArea").value.trim();
- if(points.some(p=>p.name.toLowerCase()===name.toLowerCase())){alert("ይህ የውሃ ነጥብ አስቀድሞ ተመዝግቧል።");return;}
- let data={name,area,type:el("pointType").value,status:el("pointStatus").value,createdAt:new Date().toISOString()};
- try{let r=await addDoc(collection(db,"water_points"),data);points.push({...data,id:r.id});e.target.reset();render();renderPublicPoints();alert("የውሃ ነጥቡ ተመዝግቧል።");}
- catch(err){alert("ማስቀመጥ አልተቻለም። "+err.code);}
-});
-
 function renderDashboard(){
- el("totalPoints").textContent=points.length;el("workingPoints").textContent=points.filter(p=>p.status==="working").length;
- el("brokenPoints").textContent=points.filter(p=>p.status==="broken").length;el("openReports").textContent=reports.filter(r=>r.status!=="fixed").length;
- el("overviewText").textContent="ጠቅላላ "+reports.length+" ሪፖርቶች ተመዝግበዋል። የተጠናቀቁ ጥገናዎች "+reports.filter(r=>r.status==="fixed").length+" ናቸው።";
+ el("totalReports").textContent=reports.length;
+ el("newReports").textContent=reports.filter(r=>r.status==="new").length;
+ el("repairReports").textContent=reports.filter(r=>r.status==="repair").length;
+ el("fixedReports").textContent=reports.filter(r=>r.status==="fixed").length;
+ el("overviewText").textContent="ጠቅላላ "+reports.length+" ሪፖርቶች ተመዝግበዋል። "+reports.filter(r=>r.status==="fixed").length+" ችግሮች ተጠናቀዋል። "+reports.filter(r=>r.status!=="fixed").length+" ሪፖርቶች ክትትል ይፈልጋሉ።";
  let recent=reports.slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).slice(0,3);
- el("recentReports").innerHTML=recent.length?recent.map(r=>`<div class="card"><div class="row"><strong>${esc(r.issue)}</strong><span class="badge ${statusClass[r.status]||"info"}">${statusNames[r.status]||"ያልታወቀ"}</span></div><div class="muted">${esc(r.pointName)} · ${dateText(r.createdAt)}</div></div>`).join(""):'<div class="empty">ሪፖርት የለም።</div>';
-}
-function renderPoints(){
- if(!el("pointsList"))return;
- el("pointsList").innerHTML=points.length?points.map(p=>{
- let b=p.status==="working"?'<span class="badge good">በሥራ ላይ</span>':p.status==="broken"?'<span class="badge bad">ችግር አለ</span>':'<span class="badge wait">አልተረጋገጠም</span>';
- return `<div class="card"><div class="row"><h3>${esc(p.name)}</h3>${b}</div><div class="muted">📍 ${esc(p.area)}<br>አይነት፦ ${esc(p.type)}<br>የተመዘገበበት፦ ${dateText(p.createdAt)}</div></div>`;
- }).join(""):'<div class="empty">የውሃ ነጥብ የለም።</div>';
+ el("recentReports").innerHTML=recent.length?recent.map(r=>`
+ <div class="card">
+  <div class="row"><strong>${esc(r.issue)}</strong><span class="badge ${statusClass[r.status]||"info"}">${statusNames[r.status]||"ያልታወቀ"}</span></div>
+  <div class="muted">${esc(r.kebele)} · ${esc(r.village)} · ${dateText(r.createdAt)}</div>
+ </div>`).join(""):'<div class="empty">ሪፖርት የለም።</div>';
 }
 function renderReports(){
  let f=el("filterStatus").value,arr=reports.filter(r=>f==="all"||r.status===f);
@@ -319,34 +386,59 @@ function renderReports(){
  el("reportsList").innerHTML=arr.map(r=>`
  <div class="card report">
   <div class="row"><h3>${esc(r.issue)}</h3><span class="badge ${statusClass[r.status]||"info"}">${statusNames[r.status]||"ያልታወቀ"}</span></div>
-  <div class="muted">የውሃ ነጥብ፦ ${esc(r.pointName)}<br>ቀን፦ ${dateText(r.createdAt)}<br>አስቸኳይነት፦ ${r.priority==="high"?"ከፍተኛ":r.priority==="medium"?"መካከለኛ":"ዝቅተኛ"}<br>ሪፖርት አቅራቢ፦ ${esc(r.reporter||"አልተገለጸም")}</div>
-  <p>${esc(r.description)}</p><label>የሪፖርት ሁኔታ ቀይር</label>
-  <select onchange="changeStatus('${esc(r.id)}',this.value)">${Object.entries(statusNames).map(([k,n])=>`<option value="${k}" ${r.status===k?"selected":""}>${n}</option>`).join("")}</select>
+  <div class="muted">
+   ቀበሌ፦ ${esc(r.kebele)}<br>
+   መንደር፦ ${esc(r.village)}<br>
+   ትክክለኛ ቦታ፦ ${esc(r.locationDescription)}<br>
+   የቧንቧ አይነት፦ ${esc(r.pipeType)}<br>
+   ቀን፦ ${dateText(r.createdAt)}<br>
+   አስቸኳይነት፦ ${r.priority==="high"?"ከፍተኛ":r.priority==="medium"?"መካከለኛ":"ዝቅተኛ"}<br>
+   ሪፖርት አቅራቢ፦ ${esc(r.reporter||"አልተገለጸም")}
+  </div>
+  <p>${esc(r.description)}</p>
+  <label>የሪፖርት ሁኔታ ቀይር</label>
+  <select onchange="changeStatus('${esc(r.id)}',this.value)">
+   ${Object.entries(statusNames).map(([k,n])=>`<option value="${k}" ${r.status===k?"selected":""}>${n}</option>`).join("")}
+  </select>
   ${isAdmin()?`<div class="actions"><button class="secondary danger" onclick="deleteReport('${esc(r.id)}')">ሪፖርት አጥፋ</button></div>`:""}
  </div>`).join("");
 }
 function renderHistory(){
  let a=reports.filter(r=>r.status==="fixed");
- el("historyList").innerHTML=a.length?a.map(r=>`<div class="card"><span class="badge good">ተጠናቋል</span><h3>${esc(r.pointName)}</h3><div class="muted">ችግር፦ ${esc(r.issue)}<br>ሪፖርት፦ ${dateText(r.createdAt)}<br>የመጨረሻ ማሻሻያ፦ ${dateText(r.updatedAt)}</div></div>`).join(""):'<div class="empty">የተጠናቀቀ ጥገና የለም።</div>';
+ el("historyList").innerHTML=a.length?a.map(r=>`
+ <div class="card">
+  <span class="badge good">ተጠናቋል</span>
+  <h3>${esc(r.issue)}</h3>
+  <div class="muted">
+   ቀበሌ፦ ${esc(r.kebele)}<br>
+   መንደር፦ ${esc(r.village)}<br>
+   ቦታ፦ ${esc(r.locationDescription)}<br>
+   የቧንቧ አይነት፦ ${esc(r.pipeType)}<br>
+   ሪፖርት፦ ${dateText(r.createdAt)}<br>
+   የመጨረሻ ማሻሻያ፦ ${dateText(r.updatedAt)}
+  </div>
+ </div>`).join(""):'<div class="empty">የተጠናቀቀ ጥገና የለም።</div>';
 }
 window.changeStatus=async(id,value)=>{
  if(!currentUser||!["new","checking","repair","fixed"].includes(value))return;
  let r=reports.find(x=>x.id===id);if(!r)return;
- let old=r.status,oldDate=r.updatedAt;r.status=value;r.updatedAt=new Date().toISOString();
+ let old=r.status,oldDate=r.updatedAt;
+ r.status=value;r.updatedAt=new Date().toISOString();
  try{
   await updateDoc(doc(db,"reports",id),{status:value,updatedAt:r.updatedAt});
-  // የውሃ ነጥብ ሁኔታን የሚቀይረው ዋና አስተዳዳሪ ብቻ ነው።
-  if(isAdmin()&&r.pointId&&r.issue!=="የውሃ ጥራት ጥርጣሬ"){
-   let p=points.find(x=>x.id===r.pointId);
-   if(p){let other=reports.some(x=>x.pointId===p.id&&x.id!==id&&x.status!=="fixed");let next=value==="fixed"&&!other?"working":"broken";await updateDoc(doc(db,"water_points",p.id),{status:next});p.status=next;}
-  }
-  render();renderPublicPoints();msg("syncMessage","የሪፖርት ሁኔታ ተሻሽሏል።","success");
- }catch(e){r.status=old;r.updatedAt=oldDate;render();msg("syncMessage","ሁኔታውን ማዘመን አልተቻለም። "+e.code,"error");}
+  render();msg("syncMessage","የሪፖርት ሁኔታ ተሻሽሏል።","success");
+ }catch(e){
+  r.status=old;r.updatedAt=oldDate;render();
+  msg("syncMessage","ሁኔታውን ማዘመን አልተቻለም። "+e.code,"error");
+ }
 };
 window.deleteReport=async id=>{
  if(!isAdmin()||!confirm("ይህን ሪፖርት ማጥፋት ትፈልጋለህ?"))return;
- try{await deleteDoc(doc(db,"reports",id));reports=reports.filter(r=>r.id!==id);render();msg("syncMessage","ሪፖርቱ ተሰርዟል።","success");}
- catch(e){msg("syncMessage","ማጥፋት አልተቻለም። "+e.code,"error");}
+ try{
+  await deleteDoc(doc(db,"reports",id));
+  reports=reports.filter(r=>r.id!==id);render();
+  msg("syncMessage","ሪፖርቱ ተሰርዟል።","success");
+ }catch(e){msg("syncMessage","ማጥፋት አልተቻለም። "+e.code,"error");}
 };
 el("filterStatus").addEventListener("change",renderReports);
 
@@ -356,41 +448,61 @@ async function reauth(password){
  await reauthenticateWithCredential(currentUser,credential);
 }
 el("emailForm").addEventListener("submit",async e=>{
- e.preventDefault();let next=el("newEmail").value.trim(),pw=el("emailCurrentPassword").value;
+ e.preventDefault();
+ let next=el("newEmail").value.trim(),pw=el("emailCurrentPassword").value;
  if(!next||next===currentUser.email){msg("emailMessage","አዲስና የተለየ ኢሜይል አስገባ።","error");return;}
- try{await reauth(pw);await verifyBeforeUpdateEmail(currentUser,next);msg("emailMessage","የማረጋገጫ ሊንክ ወደ አዲሱ ኢሜይል ተልኳል። ሊንኩን ከከፈትክ በኋላ እንደገና ግባ።","success");e.target.reset();}
- catch(err){msg("emailMessage","ኢሜይሉን መቀየር አልተቻለም። "+err.code,"error");}
+ try{
+  await reauth(pw);await verifyBeforeUpdateEmail(currentUser,next);
+  msg("emailMessage","የማረጋገጫ ሊንክ ወደ አዲሱ ኢሜይል ተልኳል። ሊንኩን ከከፈትክ በኋላ እንደገና ግባ።","success");
+  e.target.reset();
+ }catch(err){msg("emailMessage","ኢሜይሉን መቀየር አልተቻለም። "+err.code,"error");}
 });
 el("passwordForm").addEventListener("submit",async e=>{
- e.preventDefault();let old=el("passwordCurrent").value,n=el("newPassword").value,c=el("confirmPassword").value;
+ e.preventDefault();
+ let old=el("passwordCurrent").value,n=el("newPassword").value,c=el("confirmPassword").value;
  if(n.length<6){msg("passwordMessage","አዲሱ የይለፍ ቃል ቢያንስ 6 ፊደል/ቁጥር ይኑረው።","error");return;}
  if(n!==c){msg("passwordMessage","አዲሱ የይለፍ ቃል አይዛመድም።","error");return;}
- try{await reauth(old);await updatePassword(currentUser,n);e.target.reset();msg("passwordMessage","የይለፍ ቃልህ በተሳካ ሁኔታ ተቀይሯል።","success");}
- catch(err){msg("passwordMessage","የይለፍ ቃሉን መቀየር አልተቻለም። "+err.code,"error");}
+ try{
+  await reauth(old);await updatePassword(currentUser,n);e.target.reset();
+  msg("passwordMessage","የይለፍ ቃልህ በተሳካ ሁኔታ ተቀይሯል።","success");
+ }catch(err){msg("passwordMessage","የይለፍ ቃሉን መቀየር አልተቻለም። "+err.code,"error");}
 });
 
+async function loadStaffMembers(){
+ let s=await getDocs(collection(db,"staff_users"));
+ staffMembers=s.docs.map(d=>({uid:d.id,...d.data()}));
+ renderStaff();
+}
 el("staffForm").addEventListener("submit",async e=>{
  e.preventDefault();if(!isAdmin())return;
  let uid=el("staffUid").value.trim(),name=el("staffName").value.trim(),role=el("staffRole").value;
  if(!uid||uid===ADMIN_UID){msg("staffMessage","ይህ UID መጠቀም አይቻልም።","error");return;}
  try{
   await setDoc(doc(db,"staff_users",uid),{name,role,active:true,createdAt:new Date().toISOString()});
-  e.target.reset();await loadStaffMembers();msg("staffMessage","የሠራተኛው ፈቃድ ተመዝግቧል።","success");
+  e.target.reset();await loadStaffMembers();
+  msg("staffMessage","የሠራተኛው ፈቃድ ተመዝግቧል።","success");
  }catch(err){msg("staffMessage","ፈቃድ መስጠት አልተቻለም። "+err.code,"error");}
 });
 function renderStaff(){
  if(!el("staffList"))return;
  el("staffList").innerHTML=staffMembers.length?staffMembers.map(s=>`
- <div class="card"><div class="row"><strong>${esc(s.name||"ስም የለም")}</strong><span class="badge ${s.active?"good":"bad"}">${s.active?"ንቁ":"ተቋርጧል"}</span></div>
- <div class="muted">UID፦ ${esc(s.uid)}<br>ሚና፦ ${s.role==="manager"?"የውሃ ቢሮ ኃላፊ":"የቴክኒክ ባለሙያ"}</div>
- <div class="actions"><button class="secondary ${s.active?"danger":""}" onclick="toggleStaff('${esc(s.uid)}',${!s.active})">${s.active?"ፈቃድ አቋርጥ":"ፈቃድ መልስ"}</button></div></div>`).join(""):'<div class="empty">የተመዘገበ ሠራተኛ የለም።</div>';
+ <div class="card">
+  <div class="row"><strong>${esc(s.name||"ስም የለም")}</strong><span class="badge ${s.active?"good":"bad"}">${s.active?"ንቁ":"ተቋርጧል"}</span></div>
+  <div class="muted">UID፦ ${esc(s.uid)}<br>ሚና፦ ${s.role==="manager"?"የውሃ ቢሮ ኃላፊ":"የቴክኒክ ባለሙያ"}</div>
+  <div class="actions"><button class="secondary ${s.active?"danger":""}" onclick="toggleStaff('${esc(s.uid)}',${!s.active})">${s.active?"ፈቃድ አቋርጥ":"ፈቃድ መልስ"}</button></div>
+ </div>`).join(""):'<div class="empty">የተመዘገበ ሠራተኛ የለም።</div>';
 }
 window.toggleStaff=async(uid,active)=>{
  if(!isAdmin())return;
- try{await updateDoc(doc(db,"staff_users",uid),{active});await loadStaffMembers();msg("syncMessage",active?"የሠራተኛው ፈቃድ ተመልሷል።":"የሠራተኛው ፈቃድ ተቋርጧል።","success");}
- catch(e){msg("syncMessage","የሠራተኛ ፈቃድ ማዘመን አልተቻለም። "+e.code,"error");}
+ try{
+  await updateDoc(doc(db,"staff_users",uid),{active});
+  await loadStaffMembers();
+  msg("syncMessage",active?"የሠራተኛው ፈቃድ ተመልሷል።":"የሠራተኛው ፈቃድ ተቋርጧል።","success");
+ }catch(e){msg("syncMessage","የሠራተኛ ፈቃድ ማዘመን አልተቻለም። "+e.code,"error");}
 };
-function render(){renderDashboard();renderPoints();renderReports();renderHistory();}
+function render(){
+ renderDashboard();renderReports();renderHistory();
+}
 </script>
 </body>
 </html>
