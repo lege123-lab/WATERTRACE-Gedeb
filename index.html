@@ -322,24 +322,54 @@ el("forgotPassword").addEventListener("click",async()=>{
 });
 el("logoutButton").addEventListener("click",()=>signOut(auth));
 
-onAuthStateChanged(auth,async user=>{
- currentUser=user;currentRole="public";
- if(!user){reports=[];staffMembers=[];showRoleUI();return;}
- if(user.uid===ADMIN_UID){currentRole="admin";}
- else{
-  try{
-   let s=await getDoc(doc(db,"staff_users",user.uid));
-   if(s.exists()&&s.data().active===true&&["staff","manager"].includes(s.data().role)){
-    currentRole=s.data().role;
-   }else{
-    await signOut(auth);msg("loginMessage","ይህ መለያ የቢሮ ፈቃድ የለውም።","error");return;
-   }
-  }catch(e){
-   console.error(e);await signOut(auth);
-   msg("loginMessage","የሠራተኛ ፈቃድን ማረጋገጥ አልተቻለም። "+e.code,"error");return;
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+  currentRole = "public";
+
+  if (!user) {
+    reports = [];
+    staffMembers = [];
+    showRoleUI();
+    return;
   }
- }
- showRoleUI();await loadStaffData();
+
+  try {
+    if (user.uid === ADMIN_UID) {
+      currentRole = "admin";
+    } else {
+      const staffDoc = await getDoc(doc(db, "staff_users", user.uid));
+
+      if (
+        staffDoc.exists() &&
+        staffDoc.data().active === true &&
+        ["staff", "manager"].includes(staffDoc.data().role)
+      ) {
+        currentRole = staffDoc.data().role;
+      } else {
+        currentRole = "public";
+        showRoleUI();
+        msg(
+          "loginMessage",
+          "ይህ መለያ የቢሮ ፈቃድ የለውም።",
+          "error"
+        );
+        await signOut(auth);
+        return;
+      }
+    }
+
+    showRoleUI();
+    await loadStaffData();
+
+  } catch (error) {
+    console.error("Authentication error:", error);
+    msg(
+      "syncMessage",
+      "የመለያ ማረጋገጫ ወይም መረጃ ማምጣት ችግር፦ " + error.code,
+      "error"
+    );
+    showRoleUI();
+  }
 });
 
 async function loadStaffData(){
