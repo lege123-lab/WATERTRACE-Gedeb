@@ -383,11 +383,7 @@ async function loadStaffData(){
   console.error(e);msg("syncMessage","መረጃዎችን ማምጣት አልተቻለም። "+e.code,"error");
  }
 }
-async function loadStaffMembers(){
- let s=await getDocs(collection(db,"staff_users"));
- staffMembers=s.docs.map(d=>({uid:d.id,...d.data()}));
- renderStaff();
-}
+
 function go(page){
  if(page==="staff"&&!isAdmin())return;
  document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
