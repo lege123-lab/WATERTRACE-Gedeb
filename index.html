@@ -1,659 +1,695 @@
-
-<!DOCTYPE html>
-<html lang="am">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#075e54">
-<title>WATERTRACE - GEDEB</title>
-<style>
-:root{
---green:#087f6e;--dark:#064e46;--bg:#f3f7f6;
---white:#fff;--text:#18332f;--muted:#71817e;
---red:#d94343;--orange:#e99a28;--blue:#2674c9;
---border:#e2eae7
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,"Noto Sans Ethiopic",sans-serif;background:var(--bg);color:var(--text)}
-header{background:linear-gradient(135deg,#064e46,#0a8975);color:white;padding:23px 18px 25px;border-radius:0 0 25px 25px}
-.top{display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:21px;font-weight:800;letter-spacing:1px}
-.logo span{color:#a8f2d9}
-.tagline{font-size:12px;opacity:.85;margin-top:5px}
-.pill{font-size:11px;background:#ffffff25;border:1px solid #ffffff55;padding:7px 10px;border-radius:20px}
-.hero{margin-top:25px}
-.hero h1{font-size:23px;margin:0 0 8px}
-.hero p{font-size:13px;line-height:1.7;margin:0;opacity:.9}
-.container{padding:17px;max-width:850px;margin:auto}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:-5px}
-.stat{background:white;border:1px solid var(--border);border-radius:15px;padding:15px;box-shadow:0 3px 12px #1232}
-.stat .number{font-size:27px;font-weight:800;margin-top:9px}
-.stat small{color:var(--muted)}
-.stat .symbol{font-size:21px}
-.section-title{font-size:17px;font-weight:800;margin:23px 0 12px}
-.card{background:white;border:1px solid var(--border);border-radius:15px;padding:15px;margin-bottom:12px}
-.card h3{margin:0 0 8px;font-size:15px}
-.muted{color:var(--muted);font-size:12px;line-height:1.6}
-.tabs{display:flex;gap:7px;overflow-x:auto;padding:13px 0;position:sticky;top:0;background:var(--bg);z-index:5}
-.tab{border:1px solid var(--border);background:white;color:var(--text);border-radius:20px;padding:10px 13px;white-space:nowrap;font-size:12px;font-weight:700}
-.tab.active{background:var(--dark);color:white;border-color:var(--dark)}
-button{cursor:pointer;font-family:inherit}
-.primary{width:100%;padding:13px;background:var(--green);color:white;border:0;border-radius:11px;font-size:14px;font-weight:700;margin-top:14px}
-.secondary{padding:9px 12px;background:#e7f4f0;color:var(--dark);border:0;border-radius:9px;font-weight:700;font-size:12px}
-.danger{background:#fff0f0;color:var(--red)}
-label{display:block;font-size:13px;font-weight:700;margin:13px 0 7px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #d9e3df;border-radius:10px;background:#fff;color:var(--text);font-family:inherit;font-size:14px;outline:none}
-input:focus,select:focus,textarea:focus{border-color:var(--green)}
-textarea{min-height:85px;resize:vertical}
-.badge{display:inline-block;padding:6px 9px;border-radius:20px;font-size:11px;font-weight:700}
-.good{background:#e1f6e9;color:#18723d}
-.bad{background:#ffe8e8;color:#b52b2b}
-.wait{background:#fff1d8;color:#94600b}
-.info{background:#e5f0ff;color:#235ca1}
-.report{border-left:4px solid var(--orange)}
-.report h3{line-height:1.5}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.hidden{display:none!important}
-.empty{text-align:center;padding:28px 10px;color:var(--muted);font-size:13px}
-.footer{text-align:center;padding:25px 10px;font-size:11px;color:var(--muted)}
-.notice{background:#fff7df;border:1px solid #f0dda4;border-radius:12px;padding:12px;font-size:12px;line-height:1.7;color:#74571a;margin:12px 0}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.auth-card{max-width:480px;margin:25px auto}
-.auth-card h2{text-align:center;color:var(--dark)}
-.connection{font-size:12px;padding:9px;border-radius:9px;margin:10px 0;background:#e5f0ff;color:#235ca1}
-.connection.error{background:#ffe8e8;color:#b52b2b}
-.connection.success{background:#e1f6e9;color:#18723d}
-@media(min-width:650px){.stats{grid-template-columns:repeat(4,1fr)}}
-</style>
-</head>
-<body>
-
-<header>
-<div class="top">
-<div>
-<div class="logo">WATER<span>TRACE</span></div>
-<div class="tagline">GEDEB WATER MONITORING SYSTEM</div>
-</div>
-<div class="pill">PROTOTYPE 2.0</div>
-</div>
-<div class="hero">
-<h1>የውሃ ነጥብ ክትትል ስርዓት</h1>
-<p>የውሃ ችግርን በፍጥነት እናሳውቅ።<br>የጥገና ሂደትን እንከታተል።</p>
-</div>
-</header>
-
-<!-- LOGIN -->
-<main class="container">
-<section id="loginSection" class="card auth-card">
-<h2>WATERTRACE አስተዳዳሪ መግቢያ</h2>
-<p class="muted">ወደ ስርዓቱ ለመግባት የFirebase Authentication መለያህን ተጠቀም።</p>
-<form id="loginForm">
-<label>ኢሜይል</label>
-<input id="loginEmail" type="email" required placeholder="የኢሜይል አድራሻ">
-<label>የይለፍ ቃል</label>
-<input id="loginPassword" type="password" required placeholder="የይለፍ ቃል">
-<button class="primary" id="loginButton" type="submit">ግባ</button>
-</form>
-<div id="loginMessage" class="connection">እባክህ በአስተዳዳሪ መለያህ ግባ።</div>
-</section>
-
-<!-- APP -->
-<div id="appSection" class="hidden">
-
-<div class="card">
-<div class="row">
-<div>
-<strong>የአስተዳዳሪ መለያ</strong>
-<div class="muted" id="adminEmail"></div>
-</div>
-<button class="secondary danger" id="logoutButton">ውጣ</button>
-</div>
-<div id="syncMessage" class="connection">Firebase እየተገናኘ ነው...</div>
-</div>
-
-<nav class="tabs">
-<button class="tab active" data-page="dashboard">ዋና ገጽ</button>
-<button class="tab" data-page="points">የውሃ ነጥቦች</button>
-<button class="tab" data-page="report">ችግር ሪፖርት</button>
-<button class="tab" data-page="reports">ሪፖርቶች</button>
-<button class="tab" data-page="history">ታሪክ</button>
-</nav>
-
-<section id="dashboard" class="page">
-<div class="stats">
-<div class="stat"><div class="symbol">💧</div><div class="number" id="totalPoints">0</div><small>ጠቅላላ የውሃ ነጥቦች</small></div>
-<div class="stat"><div class="symbol">🟢</div><div class="number" id="workingPoints">0</div><small>በሥራ ላይ</small></div>
-<div class="stat"><div class="symbol">🔴</div><div class="number" id="brokenPoints">0</div><small>ችግር ያለባቸው</small></div>
-<div class="stat"><div class="symbol">📋</div><div class="number" id="openReports">0</div><small>ያልተጠናቀቁ ሪፖርቶች</small></div>
-</div>
-<div class="section-title">የስርዓቱ አጠቃላይ ሁኔታ</div>
-<div class="card">
-<h3>WATERTRACE Overview</h3>
-<p class="muted">ይህ ዳሽቦርድ የተመዘገቡ የውሃ ነጥቦችንና የችግር ሪፖርቶችን ያሳያል።</p>
-<div id="overviewText" class="muted"></div>
-</div>
-<div class="section-title">የቅርብ ጊዜ ሪፖርቶች</div>
-<div id="recentReports"></div>
-</section>
-
-<section id="points" class="page hidden">
-<div class="section-title">የውሃ ነጥቦች</div>
-<div class="card">
-<h3>አዲስ የውሃ ነጥብ መመዝገብ</h3>
-<form id="pointForm">
-<label>የውሃ ነጥብ ስም / መለያ</label>
-<input id="pointName" required placeholder="ለምሳሌ WP-001">
-<label>ቀበሌ / አካባቢ</label>
-<input id="pointArea" required placeholder="የአካባቢው ስም">
-<label>የውሃ ነጥብ አይነት</label>
-<select id="pointType">
-<option>የእጅ ፓምፕ</option><option>የኤሌክትሪክ ፓምፕ</option>
-<option>የሕዝብ ቧንቧ</option><option>የውሃ ታንከር</option><option>ሌላ</option>
-</select>
-<label>የአሁኑ ሁኔታ</label>
-<select id="pointStatus">
-<option value="working">በሥራ ላይ</option>
-<option value="broken">ተበላሽቷል</option>
-<option value="unknown">አልተረጋገጠም</option>
-</select>
-<button class="primary" type="submit">የውሃ ነጥቡን መዝግብ</button>
-</form>
-</div>
-<div id="pointsList"></div>
-</section>
-
-<section id="report" class="page hidden">
-<div class="section-title">የችግር ሪፖርት ማቅረብ</div>
-<div class="card">
-<form id="reportForm">
-<label>የውሃ ነጥብ</label>
-<select id="reportPoint" required></select>
-<label>የችግሩ አይነት</label>
-<select id="issueType" required>
-<option value="ውሃ ፈጽሞ የለም">ውሃ ፈጽሞ የለም</option>
-<option value="የፓምፕ ብልሽት">የፓምፕ ብልሽት</option>
-<option value="ደካማ የውሃ ፍሰት">ደካማ የውሃ ፍሰት</option>
-<option value="የቧንቧ መሰበር">የቧንቧ መሰበር</option>
-<option value="የውሃ ጥራት ጥርጣሬ">የውሃ ጥራት ጥርጣሬ</option>
-<option value="ሌላ">ሌላ</option>
-</select>
-<label>የችግሩ አስቸኳይነት</label>
-<select id="priority">
-<option value="high">ከፍተኛ</option><option value="medium" selected>መካከለኛ</option><option value="low">ዝቅተኛ</option>
-</select>
-<label>የችግሩ መግለጫ</label>
-<textarea id="description" placeholder="ችግሩን በአጭሩ ግለጽ..." required></textarea>
-<label>የሪፖርት አቅራቢ ስም (አማራጭ)</label>
-<input id="reporter" placeholder="ስም">
-<button class="primary" type="submit">ሪፖርት ላክ</button>
-</form>
-</div>
-</section>
-
-<section id="reports" class="page hidden">
-<div class="section-title">የችግር ሪፖርቶች</div>
-<div class="card">
-<label>በሁኔታ ማጣራት</label>
-<select id="filterStatus">
-<option value="all">ሁሉንም አሳይ</option>
-<option value="new">አዲስ</option>
-<option value="checking">በምርመራ ላይ</option>
-<option value="repair">በጥገና ላይ</option>
-<option value="fixed">ተጠግኗል</option>
-</select>
-</div>
-<div id="reportsList"></div>
-</section>
-
-<section id="history" class="page hidden">
-<div class="section-title">የጥገና ታሪክ</div>
-<div class="card"><p class="muted">የተጠናቀቁ የጥገና ሪፖርቶች እዚህ ይታያሉ።</p></div>
-<div id="historyList"></div>
-</section>
-</div>
-
-<div class="footer">
-WATERTRACE – GEDEB<br>
-Smart Water-Point Monitoring & Maintenance<br>
-Prototype 2.0
-</div>
-</main>
-
-<script type="module">
-import {initializeApp}
-from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
-
-import {
-getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut
-} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
-
-import {
-getFirestore,collection,getDocs,doc,setDoc,deleteDoc
-} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
-
-const firebaseConfig={
-apiKey:"AIzaSyC8dT6eaqrLfzsUkm0itmF7xgerqDEk2ZI",
-authDomain:"watertrace-gedeb.firebaseapp.com",
-projectId:"watertrace-gedeb",
-storageBucket:"watertrace-gedeb.firebasestorage.app",
-messagingSenderId:"693541100506",
-appId:"1:693541100506:web:33d6b16723b5bf81373ee3"
-};
-
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
-
-const STORE_POINTS="watertrace_points_v1";
-const STORE_REPORTS="watertrace_reports_v1";
-
-let points=read(STORE_POINTS,[]);
-let reports=read(STORE_REPORTS,[]);
-let currentUser=null;
-let busy=false;
-
-function read(key,fallback){
-try{
-const value=localStorage.getItem(key);
-return value?JSON.parse(value):fallback;
-}catch(e){return fallback;}
-}
-
-function saveLocal(){
-localStorage.setItem(STORE_POINTS,JSON.stringify(points));
-localStorage.setItem(STORE_REPORTS,JSON.stringify(reports));
-}
-
-function message(text,type=""){
-const el=document.getElementById("syncMessage");
-el.textContent=text;
-el.className="connection "+type;
-}
-
-function loginMessage(text,type=""){
-const el=document.getElementById("loginMessage");
-el.textContent=text;
-el.className="connection "+type;
-}
-
-const statusNames={
-new:"አዲስ",checking:"በምርመራ ላይ",
-repair:"በጥገና ላይ",fixed:"ተጠግኗል"
-};
-
-const statusClass={
-new:"bad",checking:"info",repair:"wait",fixed:"good"
-};
-
-function dateText(date){
-if(!date)return "ቀን የለም";
-const d=date.toDate?date.toDate():new Date(date);
-return isNaN(d.getTime())?"ቀን የለም":d.toLocaleString("am-ET");
-}
-
-function escapeHTML(value){
-return String(value??"").replace(/[&<>"']/g,c=>({
-"&":"&amp;","<":"&lt;",">":"&gt;",
-'"':"&quot;","'":"&#039;"
-}[c]));
-}
-
-function showApp(user){
-currentUser=user;
-document.getElementById("loginSection").classList.add("hidden");
-document.getElementById("appSection").classList.remove("hidden");
-document.getElementById("adminEmail").textContent=user.email||"Admin";
-}
-
-document.getElementById("loginForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const email=document.getElementById("loginEmail").value.trim();
-const password=document.getElementById("loginPassword").value;
-const button=document.getElementById("loginButton");
-button.disabled=true;
-button.textContent="እየገባ ነው...";
-loginMessage("ወደ Firebase እየተገናኘ ነው...");
-try{
-await signInWithEmailAndPassword(auth,email,password);
-}catch(error){
-loginMessage("መግባት አልተቻለም። ኢሜይልና የይለፍ ቃልህን አረጋግጥ። ("+error.code+")","error");
-}finally{
-button.disabled=false;
-button.textContent="ግባ";
-}
-});
-
-document.getElementById("logoutButton").addEventListener("click",async()=>{
-try{await signOut(auth);}
-catch(error){alert("መውጣት አልተቻለም። "+error.message);}
-});
-
-onAuthStateChanged(auth,async user=>{
-if(user){
-showApp(user);
-await loadAndSync();
-}else{
-currentUser=null;
-document.getElementById("appSection").classList.add("hidden");
-document.getElementById("loginSection").classList.remove("hidden");
-}
-});
-
-function normalizePoint(id,d){
-return {
-id,
-name:d.name||d.point_id||"ያልተሰየመ ነጥብ",
-area:d.area||d.location||"አካባቢ አልተገለጸም",
-type:d.type||"አልተገለጸም",
-status:d.status||"unknown",
-createdAt:d.createdAt||d.created_at||new Date().toISOString()
-};
-}
-
-function normalizeReport(id,d){
-return {
-id,
-pointId:d.pointId||d.point_id||"",
-pointName:d.pointName||d.point_name||d.point_id||"ያልታወቀ ነጥብ",
-issue:d.issue||d.problem_type||"ያልተገለጸ ችግር",
-priority:d.priority||"medium",
-description:d.description||"",
-reporter:d.reporter||"",
-status:d.status||"new",
-createdAt:d.createdAt||d.created_at||new Date().toISOString(),
-updatedAt:d.updatedAt||d.updated_at||d.createdAt||new Date().toISOString()
-};
-}
-
-async function loadAndSync(){
-if(!currentUser||busy)return;
-busy=true;
-message("Firebase መረጃዎችን እያመሳሰለ ነው...");
-try{
-const [pointSnap,reportSnap]=await Promise.all([
-getDocs(collection(db,"water_points")),
-getDocs(collection(db,"reports"))
-]);
-
-const remotePoints=pointSnap.docs.map(x=>normalizePoint(x.id,x.data()));
-const remoteReports=reportSnap.docs.map(x=>normalizeReport(x.id,x.data()));
-
-const pointMap=new Map();
-points.forEach(p=>pointMap.set(p.id,p));
-remotePoints.forEach(p=>pointMap.set(p.id,p));
-points=Array.from(pointMap.values());
-
-const reportMap=new Map();
-reports.forEach(r=>reportMap.set(r.id,r));
-remoteReports.forEach(r=>reportMap.set(r.id,r));
-reports=Array.from(reportMap.values());
-
-saveLocal();
-
-for(const p of points){
-await setDoc(doc(db,"water_points",p.id),p);
-}
-for(const r of reports){
-await setDoc(doc(db,"reports",r.id),r);
-}
-
-message("Firebase በተሳካ ሁኔታ ተገናኝቷል። መረጃዎች ተመሳስለዋል።","success");
-render();
-}catch(error){
-console.error(error);
-message("Firebase ግንኙነት አልተሳካም። "+error.message,"error");
-}finally{
-busy=false;
-}
-}
-
-async function savePoint(point){
-saveLocal();
-if(!currentUser)return;
-try{
-await setDoc(doc(db,"water_points",point.id),point);
-message("የውሃ ነጥቡ በFirebase ተመዝግቧል።","success");
-}catch(error){
-message("በFirebase ማስቀመጥ አልተቻለም። በስልክ ላይ ተቀምጧል። "+error.message,"error");
-}
-}
-
-async function saveReport(report){
-saveLocal();
-if(!currentUser)return;
-try{
-await setDoc(doc(db,"reports",report.id),report);
-message("ሪፖርቱ በFirebase ተመዝግቧል።","success");
-}catch(error){
-message("ሪፖርቱ በስልክ ላይ ተቀምጧል፤ Firebase ማስቀመጥ አልተቻለም። "+error.message,"error");
-}
-}
-
-function go(page){
-document.querySelectorAll(".page").forEach(el=>el.classList.add("hidden"));
-document.getElementById(page).classList.remove("hidden");
-document.querySelectorAll(".tab").forEach(el=>{
-el.classList.toggle("active",el.dataset.page===page);
-});
-render();
-window.scrollTo({top:0,behavior:"smooth"});
-}
-
-document.querySelectorAll(".tab").forEach(btn=>{
-btn.addEventListener("click",()=>go(btn.dataset.page));
-});
-
-document.getElementById("pointForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const name=document.getElementById("pointName").value.trim();
-const area=document.getElementById("pointArea").value.trim();
-
-if(points.some(p=>p.name.toLowerCase()===name.toLowerCase())){
-alert("ይህ መለያ አስቀድሞ ተመዝግቧል።");
-return;
-}
-
-const point={
-id:crypto.randomUUID(),
-name,area,
-type:document.getElementById("pointType").value,
-status:document.getElementById("pointStatus").value,
-createdAt:new Date().toISOString()
-};
-
-points.push(point);
-saveLocal();
-e.target.reset();
-await savePoint(point);
-alert("የውሃ ነጥቡ ተመዝግቧል።");
-render();
-});
-
-document.getElementById("reportForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const pointId=document.getElementById("reportPoint").value;
-const point=points.find(p=>p.id===pointId);
-if(!point){
-alert("እባክህ በመጀመሪያ የውሃ ነጥብ መዝግብ።");
-return;
-}
-
-const now=new Date().toISOString();
-const report={
-id:crypto.randomUUID(),
-pointId,
-pointName:point.name,
-issue:document.getElementById("issueType").value,
-priority:document.getElementById("priority").value,
-description:document.getElementById("description").value.trim(),
-reporter:document.getElementById("reporter").value.trim(),
-status:"new",
-createdAt:now,
-updatedAt:now
-};
-
-reports.unshift(report);
-if(report.issue!=="የውሃ ጥራት ጥርጣሬ"){
-point.status="broken";
-}
-
-saveLocal();
-e.target.reset();
-await saveReport(report);
-await savePoint(point);
-alert("ሪፖርቱ ተመዝግቧል።");
-go("reports");
-});
-
-document.getElementById("filterStatus").addEventListener("change",renderReports);
-
-window.changeStatus=async function(id,value){
-const report=reports.find(r=>r.id===id);
-if(!report)return;
-
-report.status=value;
-report.updatedAt=new Date().toISOString();
-
-const point=points.find(p=>p.id===report.pointId);
-if(point){
-if(value==="fixed"){
-const otherOpen=reports.some(r=>
-r.pointId===point.id&&r.id!==report.id&&r.status!=="fixed"
-);
-if(!otherOpen)point.status="working";
-}else if(report.issue!=="የውሃ ጥራት ጥርጣሬ"){
-point.status="broken";
-}
-}
-
-saveLocal();
-await saveReport(report);
-if(point)await savePoint(point);
-render();
-};
-
-window.deleteReport=async function(id){
-if(!confirm("ይህን ሪፖርት ማጥፋት ትፈልጋለህ?"))return;
-reports=reports.filter(r=>r.id!==id);
-saveLocal();
-try{
-await deleteDoc(doc(db,"reports",id));
-message("ሪፖርቱ ተሰርዟል።","success");
-}catch(error){
-message("ሪፖርቱ ከስልክ ተሰርዟል፤ Firebase ላይ ማጥፋት አልተቻለም። "+error.message,"error");
-}
-render();
-};
-
-function renderDashboard(){
-document.getElementById("totalPoints").textContent=points.length;
-document.getElementById("workingPoints").textContent=points.filter(p=>p.status==="working").length;
-document.getElementById("brokenPoints").textContent=points.filter(p=>p.status==="broken").length;
-document.getElementById("openReports").textContent=reports.filter(r=>r.status!=="fixed").length;
-
-document.getElementById("overviewText").textContent=
-"እስካሁን "+reports.length+" ሪፖርቶች ተመዝግበዋል። የተጠናቀቁ ጥገናዎች "+
-reports.filter(r=>r.status==="fixed").length+" ናቸው።";
-
-const recent=document.getElementById("recentReports");
-if(!reports.length){
-recent.innerHTML='<div class="empty">ገና ሪፖርት አልተመዘገበም።</div>';
-return;
-}
-recent.innerHTML=reports.slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).slice(0,3).map(r=>`
-<div class="card">
-<div class="row"><h3>${escapeHTML(r.issue)}</h3>
-<span class="badge ${statusClass[r.status]||"info"}">${statusNames[r.status]||"ያልታወቀ"}</span></div>
-<div class="muted">${escapeHTML(r.pointName)} · ${dateText(r.createdAt)}</div>
-</div>`).join("");
-}
-
-function renderPoints(){
-const list=document.getElementById("pointsList");
-const select=document.getElementById("reportPoint");
-
-select.innerHTML='<option value="">የውሃ ነጥብ ምረጥ</option>'+
-points.map(p=>`<option value="${escapeHTML(p.id)}">${escapeHTML(p.name)} - ${escapeHTML(p.area)}</option>`).join("");
-
-if(!points.length){
-list.innerHTML='<div class="empty">የተመዘገበ የውሃ ነጥብ የለም።</div>';
-return;
-}
-
-list.innerHTML=points.map(p=>{
-const badge=p.status==="working"?'<span class="badge good">በሥራ ላይ</span>':
-p.status==="broken"?'<span class="badge bad">ችግር አለ</span>':
-'<span class="badge wait">አልተረጋገጠም</span>';
-
-return `<div class="card">
-<div class="row"><h3>${escapeHTML(p.name)}</h3>${badge}</div>
-<div class="muted">📍 ${escapeHTML(p.area)}<br>
-አይነት፦ ${escapeHTML(p.type)}<br>
-የተመዘገበበት፦ ${dateText(p.createdAt)}</div>
-</div>`;
-}).join("");
-}
-
-function renderReports(){
-const list=document.getElementById("reportsList");
-const filter=document.getElementById("filterStatus").value;
-const filtered=reports.filter(r=>filter==="all"||r.status===filter);
-
-if(!filtered.length){
-list.innerHTML='<div class="empty">የሚታይ ሪፖርት የለም።</div>';
-return;
-}
-
-list.innerHTML=filtered.map(r=>`
-<div class="card report">
-<div class="row"><h3>${escapeHTML(r.issue)}</h3>
-<span class="badge ${statusClass[r.status]||"info"}">${statusNames[r.status]||"ያልታወቀ"}</span></div>
-<div class="muted">
-የውሃ ነጥብ፦ ${escapeHTML(r.pointName)}<br>
-ቀን፦ ${dateText(r.createdAt)}<br>
-አስቸኳይነት፦ ${r.priority==="high"?"ከፍተኛ":r.priority==="medium"?"መካከለኛ":"ዝቅተኛ"}<br>
-ሪፖርት አቅራቢ፦ ${escapeHTML(r.reporter||"አልተገለጸም")}
-</div>
-<p>${escapeHTML(r.description)}</p>
-<label>የሪፖርት ሁኔታ ቀይር</label>
-<select onchange="changeStatus('${escapeHTML(r.id)}',this.value)">
-${Object.entries(statusNames).map(([key,name])=>
-`<option value="${key}" ${r.status===key?"selected":""}>${name}</option>`
-).join("")}
-</select>
-<div class="actions">
-<button class="secondary danger" onclick="deleteReport('${escapeHTML(r.id)}')">ሪፖርት አጥፋ</button>
-</div>
-</div>`).join("");
-}
-
-function renderHistory(){
-const list=document.getElementById("historyList");
-const fixed=reports.filter(r=>r.status==="fixed");
-if(!fixed.length){
-list.innerHTML='<div class="empty">ገና የተጠናቀቀ ጥገና የለም።</div>';
-return;
-}
-list.innerHTML=fixed.map(r=>`
-<div class="card">
-<span class="badge good">ተጠናቋል</span>
-<h3>${escapeHTML(r.pointName)}</h3>
-<div class="muted">
-ችግር፦ ${escapeHTML(r.issue)}<br>
-ሪፖርት፦ ${dateText(r.createdAt)}<br>
-የመጨረሻ ማሻሻያ፦ ${dateText(r.updatedAt)}
-</div>
-</div>`).join("");
-}
-
-function render(){
-renderDashboard();
-renderPoints();
-renderReports();
-renderHistory();
-}
-
-render();
-</script>
-</body>
-</html>
+<!DOCTYPE html>  <html lang="am">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<meta name="theme-color" content="#075e54">  
+<title>WATERTRACE - GEDEB</title>  
+<style>  
+:root{  
+--green:#087f6e;--dark:#064e46;--bg:#f3f7f6;  
+--white:#fff;--text:#18332f;--muted:#71817e;  
+--red:#d94343;--orange:#e99a28;--blue:#2674c9;  
+--border:#e2eae7  
+}  
+*{box-sizing:border-box}  
+body{margin:0;font-family:Arial,"Noto Sans Ethiopic",sans-serif;background:var(--bg);color:var(--text)}  
+header{background:linear-gradient(135deg,#064e46,#0a8975);color:white;padding:23px 18px 25px;border-radius:0 0 25px 25px}  
+.top{display:flex;justify-content:space-between;align-items:center}  
+.logo{font-size:21px;font-weight:800;letter-spacing:1px}  
+.logo span{color:#a8f2d9}  
+.tagline{font-size:12px;opacity:.85;margin-top:5px}  
+.pill{font-size:11px;background:#ffffff25;border:1px solid #ffffff55;padding:7px 10px;border-radius:20px}  
+.hero{margin-top:25px}  
+.hero h1{font-size:23px;margin:0 0 8px}  
+.hero p{font-size:13px;line-height:1.7;margin:0;opacity:.9}  
+.container{padding:17px;max-width:850px;margin:auto}  
+.card{background:white;border:1px solid var(--border);border-radius:15px;padding:15px;margin-bottom:12px}  
+.card h3{margin:0 0 8px;font-size:15px}  
+.muted{color:var(--muted);font-size:12px;line-height:1.7}  
+.section-title{font-size:17px;font-weight:800;margin:23px 0 12px}  
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}  
+.tabs{display:flex;gap:7px;overflow-x:auto;padding:13px 0;position:sticky;top:0;background:var(--bg);z-index:5}  
+.tab{border:1px solid var(--border);background:white;color:var(--text);border-radius:20px;padding:10px 13px;white-space:nowrap;font-size:12px;font-weight:700}  
+.tab.active{background:var(--dark);color:white;border-color:var(--dark)}  
+button{cursor:pointer;font-family:inherit}  
+.primary{width:100%;padding:13px;background:var(--green);color:white;border:0;border-radius:11px;font-size:14px;font-weight:700;margin-top:14px}  
+.secondary{padding:9px 12px;background:#e7f4f0;color:var(--dark);border:0;border-radius:9px;font-weight:700;font-size:12px}  
+.danger{background:#fff0f0;color:var(--red)}  
+label{display:block;font-size:13px;font-weight:700;margin:13px 0 7px}  
+input,select,textarea{width:100%;padding:12px;border:1px solid #d9e3df;border-radius:10px;background:#fff;color:var(--text);font-family:inherit;font-size:14px;outline:none}  
+textarea{min-height:85px;resize:vertical}  
+.badge{display:inline-block;padding:6px 9px;border-radius:20px;font-size:11px;font-weight:700}  
+.good{background:#e1f6e9;color:#18723d}  
+.bad{background:#ffe8e8;color:#b52b2b}  
+.wait{background:#fff1d8;color:#94600b}  
+.info{background:#e5f0ff;color:#235ca1}  
+.report{border-left:4px solid var(--orange)}  
+.hidden{display:none!important}  
+.empty{text-align:center;padding:25px 10px;color:var(--muted);font-size:13px}  
+.footer{text-align:center;padding:25px 10px;font-size:11px;color:var(--muted)}  
+.notice{background:#fff7df;border:1px solid #f0dda4;border-radius:12px;padding:12px;font-size:12px;line-height:1.7;color:#74571a;margin:12px 0}  
+.connection{font-size:12px;padding:9px;border-radius:9px;margin:10px 0;background:#e5f0ff;color:#235ca1;overflow-wrap:anywhere}  
+.connection.error{background:#ffe8e8;color:#b52b2b}  
+.connection.success{background:#e1f6e9;color:#18723d}  
+.auth-card{max-width:480px;margin:20px auto}  
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}  
+.stat{background:white;border:1px solid var(--border);border-radius:15px;padding:15px}  
+.stat .number{font-size:27px;font-weight:800;margin-top:9px}  
+.stat small{color:var(--muted)}  
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}  
+@media(min-width:650px){.stats{grid-template-columns:repeat(4,1fr)}}  
+</style>  
+</head>  
+<body>  <header>  
+<div class="top">  
+<div>  
+<div class="logo">WATER<span>TRACE</span></div>  
+<div class="tagline">GEDEB WATER MONITORING SYSTEM</div>  
+</div>  
+<div class="pill">PROTOTYPE 3.0</div>  
+</div>  
+<div class="hero">  
+<h1>የውሃ ነጥብ ክትትል ስርዓት</h1>  
+<p>የውሃ ችግርን በፍጥነት እናሳውቅ።<br>የጥገና ሂደትን እንከታተል።</p>  
+</div>  
+</header>  <main class="container">  <!-- PUBLIC AREA -->  <section id="publicSection">  
+<div class="section-title">💧 የሕዝብ አገልግሎት</div>  
+<div class="notice">  
+የውሃ ነጥብ ችግር ካጋጠመህ ከታች ያለውን ቅጽ በመሙላት ለውሃ ቢሮ ሪፖርት ማቅረብ ትችላለህ። መለያ መፍጠር አያስፈልግም።  
+</div>  <div class="card">  
+<h3>የውሃ ነጥቦች ዝርዝር</h3>  
+<div id="publicPoints"><div class="empty">መረጃ እየተጫነ ነው...</div></div>  
+</div>  <div class="card">  
+<h3>የውሃ ችግር ሪፖርት አቅርብ</h3>  
+<form id="publicReportForm">  
+<label>የውሃ ነጥብ</label>  
+<select id="publicPoint" required>  
+<option value="">የውሃ ነጥብ ምረጥ</option>  
+</select>  <label>የችግሩ አይነት</label>
+<select id="publicIssue" required>
+
+<option value="ውሃ ፈጽሞ የለም">ውሃ ፈጽሞ የለም</option>  
+<option value="የፓምፕ ብልሽት">የፓምፕ ብልሽት</option>  
+<option value="ደካማ የውሃ ፍሰት">ደካማ የውሃ ፍሰት</option>  
+<option value="የቧንቧ መሰበር">የቧንቧ መሰበር</option>  
+<option value="የውሃ ጥራት ጥርጣሬ">የውሃ ጥራት ጥርጣሬ</option>  
+<option value="ሌላ">ሌላ</option>  
+</select>  <label>አስቸኳይነት</label>
+<select id="publicPriority">
+
+<option value="high">ከፍተኛ</option>  
+<option value="medium" selected>መካከለኛ</option>  
+<option value="low">ዝቅተኛ</option>  
+</select>  <label>የችግሩ መግለጫ</label>
+
+<textarea id="publicDescription" required placeholder="ችግሩን በዝርዝር ግለጽ..."></textarea>  <label>ስም (አማራጭ)</label>
+<input id="publicReporter" maxlength="80" placeholder="ስም">
+
+<button class="primary" id="publicSubmit" type="submit">ሪፖርት ላክ</button>
+
+</form>  
+<div id="publicMessage" class="connection">ሪፖርትህ ለውሃ ቢሮ ይደርሳል።</div>  
+</div>  
+</section>  <!-- STAFF LOGIN -->  <section class="card auth-card" id="loginSection">  
+<h2 style="text-align:center;color:var(--dark)">የቢሮ ሠራተኞች መግቢያ</h2>  
+<p class="muted">የውሃ ቢሮ ባለሙያዎችና ዋና አስተዳዳሪ በየራሳቸው መለያ ይግቡ።</p>  
+<form id="loginForm">  
+<label>ኢሜይል</label>  
+<input id="loginEmail" type="email" required placeholder="ኢሜይል">  
+<label>የይለፍ ቃል</label>  
+<input id="loginPassword" type="password" required placeholder="የይለፍ ቃል">  
+<button class="primary" id="loginButton" type="submit">የቢሮ መግቢያ</button>  
+</form>  
+<div id="loginMessage" class="connection">ለቢሮ ሠራተኞች ብቻ የተፈቀደ መግቢያ ነው።</div>  
+</section>  <!-- STAFF / ADMIN APP -->  <section id="appSection" class="hidden">  <div class="card">  
+<div class="row">  
+<div>  
+<strong id="roleTitle">የቢሮ መለያ</strong>  
+<div class="muted" id="staffEmail"></div>  
+</div>  
+<button class="secondary danger" id="logoutButton">ውጣ</button>  
+</div>  
+<div id="syncMessage" class="connection">Firebase...</div>  
+</div>  <nav class="tabs">  
+<button class="tab active" data-page="dashboard">ዋና ገጽ</button>  
+<button class="tab" data-page="points">የውሃ ነጥቦች</button>  
+<button class="tab" data-page="reports">ሪፖርቶች</button>  
+<button class="tab" data-page="history">የጥገና ታሪክ</button>  
+</nav>  <section id="dashboard" class="page">  
+<div class="stats">  
+<div class="stat"><div>💧</div><div class="number" id="totalPoints">0</div><small>ጠቅላላ ነጥቦች</small></div>  
+<div class="stat"><div>🟢</div><div class="number" id="workingPoints">0</div><small>በሥራ ላይ</small></div>  
+<div class="stat"><div>🔴</div><div class="number" id="brokenPoints">0</div><small>ችግር ያለባቸው</small></div>  
+<div class="stat"><div>📋</div><div class="number" id="openReports">0</div><small>ያልተጠናቀቁ</small></div>  
+</div>  
+<div class="section-title">የስርዓቱ አጠቃላይ ሁኔታ</div>  
+<div class="card">  
+<h3>WATERTRACE Overview</h3>  
+<div id="overviewText" class="muted"></div>  
+</div>  
+<div class="section-title">የቅርብ ጊዜ ሪፖርቶች</div>  
+<div id="recentReports"></div>  
+</section>  <section id="points" class="page hidden">  
+<div class="section-title">የውሃ ነጥቦች</div>  
+<div class="card adminOnly">  
+<h3>አዲስ የውሃ ነጥብ መመዝገብ</h3>  
+<form id="pointForm">  
+<label>የውሃ ነጥብ ስም / መለያ</label>  
+<input id="pointName" required placeholder="ለምሳሌ WP-001">  
+<label>ቀበሌ / አካባቢ</label>  
+<input id="pointArea" required placeholder="የአካባቢው ስም">  
+<label>የውሃ ነጥብ አይነት</label>  
+<select id="pointType">  
+<option>የእጅ ፓምፕ</option>  
+<option>የኤሌክትሪክ ፓምፕ</option>  
+<option>የሕዝብ ቧንቧ</option>  
+<option>የውሃ ታንከር</option>  
+<option>ሌላ</option>  
+</select>  
+<label>የአሁኑ ሁኔታ</label>  
+<select id="pointStatus">  
+<option value="working">በሥራ ላይ</option>  
+<option value="broken">ተበላሽቷል</option>  
+<option value="unknown">አልተረጋገጠም</option>  
+</select>  
+<button class="primary" type="submit">የውሃ ነጥቡን መዝግብ</button>  
+</form>  
+</div>  
+<div id="pointsList"></div>  
+</section>  <section id="reports" class="page hidden">  
+<div class="section-title">የችግር ሪፖርቶች</div>  
+<div class="card">  
+<label>በሁኔታ ማጣራት</label>  
+<select id="filterStatus">  
+<option value="all">ሁሉንም አሳይ</option>  
+<option value="new">አዲስ</option>  
+<option value="checking">በምርመራ ላይ</option>  
+<option value="repair">በጥገና ላይ</option>  
+<option value="fixed">ተጠግኗል</option>  
+</select>  
+</div>  
+<div id="reportsList"></div>  
+</section>  <section id="history" class="page hidden">  
+<div class="section-title">የጥገና ታሪክ</div>  
+<div id="historyList"></div>  
+</section>  
+</section>  <div class="footer">  
+WATERTRACE – GEDEB<br>  
+Smart Water-Point Monitoring & Maintenance<br>  
+Prototype 3.0  
+</div>  
+</main>  <script type="module">  
+import {initializeApp}  
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";  
+  
+import {  
+getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut  
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";  
+  
+import {  
+getFirestore,collection,getDocs,doc,getDoc,  
+setDoc,addDoc,updateDoc,deleteDoc  
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";  
+  
+const firebaseConfig={  
+apiKey:"AIzaSyC8dT6eaqrLfzsUkm0itmF7xgerqDEk2ZI",  
+authDomain:"watertrace-gedeb.firebaseapp.com",  
+projectId:"watertrace-gedeb",  
+storageBucket:"watertrace-gedeb.firebasestorage.app",  
+messagingSenderId:"693541100506",  
+appId:"1:693541100506:web:33d6b16723b5bf81373ee3"  
+};  
+  
+const ADMIN_UID="sOVUaoNANTMKKRrCiLlG9rhhiKW2";  
+  
+const app=initializeApp(firebaseConfig);  
+const auth=getAuth(app);  
+const db=getFirestore(app);  
+  
+let currentUser=null;  
+let currentRole="public";  
+let points=[];  
+let reports=[];  
+  
+const statusNames={  
+new:"አዲስ",  
+checking:"በምርመራ ላይ",  
+repair:"በጥገና ላይ",  
+fixed:"ተጠግኗል"  
+};  
+  
+const statusClass={  
+new:"bad",  
+checking:"info",  
+repair:"wait",  
+fixed:"good"  
+};  
+  
+function el(id){  
+return document.getElementById(id);  
+}  
+  
+function escapeHTML(value){  
+return String(value??"").replace(/[&<>"']/g,c=>({  
+"&":"&amp;","<":"&lt;",">":"&gt;",  
+'"':"&quot;","'":"&#039;"  
+}[c]));  
+}  
+  
+function dateText(value){  
+if(!value)return "ቀን የለም";  
+const d=value.toDate?value.toDate():new Date(value);  
+return isNaN(d.getTime())?"ቀን የለም":d.toLocaleString("am-ET");  
+}  
+  
+function setMessage(id,text,type=""){  
+el(id).textContent=text;  
+el(id).className="connection "+type;  
+}  
+  
+function isAdmin(){  
+return currentRole==="admin";  
+}  
+  
+function showRoleUI(){  
+el("publicSection").classList.remove("hidden");  
+el("loginSection").classList.toggle("hidden",!!currentUser);  
+el("appSection").classList.toggle("hidden",!currentUser);  
+  
+document.querySelectorAll(".adminOnly").forEach(node=>{  
+node.classList.toggle("hidden",!isAdmin());  
+});  
+  
+if(currentUser){  
+el("staffEmail").textContent=currentUser.email||"";  
+el("roleTitle").textContent=isAdmin()?"ዋና አስተዳዳሪ":"የውሃ ቢሮ ባለሙያ";  
+}  
+}  
+  
+async function loadPublicPoints(){  
+try{  
+const snap=await getDocs(collection(db,"water_points"));  
+points=snap.docs.map(d=>normalizePoint(d.id,d.data()));  
+renderPublicPoints();  
+renderPoints();  
+}catch(error){  
+console.error(error);  
+el("publicPoints").innerHTML=  
+'<div class="empty">የውሃ ነጥቦችን ማምጣት አልተቻለም።</div>';  
+setMessage("publicMessage","የውሃ ነጥቦችን ማምጣት አልተቻለም።","error");  
+}  
+}  
+  
+function normalizePoint(id,d){  
+return {  
+id,  
+name:d.name||d.point_id||"ያልተሰየመ ነጥብ",  
+area:d.area||d.location||"አካባቢ አልተገለጸም",  
+type:d.type||"አልተገለጸም",  
+status:d.status||"unknown",  
+createdAt:d.createdAt||d.created_at||new Date().toISOString()  
+};  
+}  
+  
+function normalizeReport(id,d){  
+return {  
+id,  
+pointId:d.pointId||d.point_id||"",  
+pointName:d.pointName||d.point_name||d.point_id||"ያልታወቀ ነጥብ",  
+issue:d.issue||d.problem_type||"ያልተገለጸ ችግር",  
+priority:d.priority||"medium",  
+description:d.description||"",  
+reporter:d.reporter||"",  
+status:d.status||"new",  
+createdAt:d.createdAt||d.created_at||new Date().toISOString(),  
+updatedAt:d.updatedAt||d.updated_at||d.createdAt||new Date().toISOString()  
+};  
+}  
+  
+function renderPublicPoints(){  
+if(!points.length){  
+el("publicPoints").innerHTML=  
+'<div class="empty">የተመዘገበ የውሃ ነጥብ የለም።</div>';  
+el("publicPoint").innerHTML=  
+'<option value="">የውሃ ነጥብ አልተገኘም</option>';  
+return;  
+}  
+  
+el("publicPoints").innerHTML=points.map(p=>{  
+const label=p.status==="working"?"በሥራ ላይ":  
+p.status==="broken"?"ችግር አለ":"አልተረጋገጠም";  
+return `<div class="card">  
+<strong>${escapeHTML(p.name)}</strong>  
+<div class="muted">📍 ${escapeHTML(p.area)} · ${escapeHTML(p.type)}</div>  
+<span class="badge ${p.status==="working"?"good":p.status==="broken"?"bad":"wait"}">${label}</span>  
+</div>`;  
+}).join("");  
+  
+el("publicPoint").innerHTML=  
+'<option value="">የውሃ ነጥብ ምረጥ</option>'+  
+points.map(p=>  
+`<option value="${escapeHTML(p.id)}">${escapeHTML(p.name)} - ${escapeHTML(p.area)}</option>`  
+).join("");  
+}  
+  
+el("publicReportForm").addEventListener("submit",async e=>{  
+e.preventDefault();  
+  
+const button=el("publicSubmit");  
+const point=points.find(p=>p.id===el("publicPoint").value);  
+  
+if(!point){  
+setMessage("publicMessage","እባክህ የውሃ ነጥብ ምረጥ።","error");  
+return;  
+}  
+  
+const description=el("publicDescription").value.trim();  
+if(description.length<5){  
+setMessage("publicMessage","የችግሩን መግለጫ በትንሹ 5 ፊደላት ጻፍ።","error");  
+return;  
+}  
+  
+button.disabled=true;  
+button.textContent="እየተላከ ነው...";  
+  
+try{  
+const report={  
+pointId:point.id,  
+pointName:point.name,  
+issue:el("publicIssue").value,  
+priority:el("publicPriority").value,  
+description,  
+reporter:el("publicReporter").value.trim(),  
+status:"new",  
+createdAt:new Date().toISOString(),  
+updatedAt:new Date().toISOString()  
+};  
+  
+const result=await addDoc(collection(db,"reports"),report);  
+  
+e.target.reset();  
+setMessage(  
+"ሪፖርትህ በተሳካ ሁኔታ ተልኳል። የሪፖርት መለያህ፦ "+result.id,  
+"success"  
+);  
+}catch(error){  
+console.error(error);  
+setMessage(  
+"ሪፖርቱን መላክ አልተቻለም። እባክህ ኢንተርኔትህን አረጋግጥ። ("+error.code+")",  
+"error"  
+);  
+}finally{  
+button.disabled=false;  
+button.textContent="ሪፖርት ላክ";  
+}  
+});  
+  
+el("loginForm").addEventListener("submit",async e=>{  
+e.preventDefault();  
+  
+const button=el("loginButton");  
+button.disabled=true;  
+button.textContent="እየገባ ነው...";  
+  
+try{  
+await signInWithEmailAndPassword(  
+auth,  
+el("loginEmail").value.trim(),  
+el("loginPassword").value  
+);  
+}catch(error){  
+setMessage(  
+"መግባት አልተቻለም። መለያህን አረጋግጥ። ("+error.code+")",  
+"error"  
+);  
+}finally{  
+button.disabled=false;  
+button.textContent="የቢሮ መግቢያ";  
+}  
+});  
+  
+el("logoutButton").addEventListener("click",async()=>{  
+try{  
+await signOut(auth);  
+}catch(error){  
+alert("መውጣት አልተቻለም።");  
+}  
+});  
+  
+onAuthStateChanged(auth,async user=>{  
+currentUser=user;  
+currentRole="public";  
+  
+if(!user){  
+reports=[];  
+showRoleUI();  
+await loadPublicPoints();  
+return;  
+}  
+  
+if(user.uid===ADMIN_UID){  
+currentRole="admin";  
+}else{  
+try{  
+const roleSnap=await getDoc(doc(db,"staff_users",user.uid));  
+if(roleSnap.exists()&&roleSnap.data().active===true&&roleSnap.data().role==="staff"){  
+currentRole="staff";  
+}else{  
+await signOut(auth);  
+setMessage("loginMessage","ይህ መለያ የቢሮ ፈቃድ የለውም።","error");  
+return;  
+}  
+}catch(error){  
+console.error(error);  
+setMessage("loginMessage","የሠራተኛ ፈቃድን ማረጋገጥ አልተቻለም።","error");  
+await signOut(auth);  
+return;  
+}  
+}  
+  
+showRoleUI();  
+await loadStaffData();  
+});  
+  
+async function loadStaffData(){  
+setMessage("syncMessage","Firebase መረጃዎችን እያመጣ ነው...");  
+try{  
+const [pointSnap,reportSnap]=await Promise.all([  
+getDocs(collection(db,"water_points")),  
+getDocs(collection(db,"reports"))  
+]);  
+  
+points=pointSnap.docs.map(d=>normalizePoint(d.id,d.data()));  
+reports=reportSnap.docs.map(d=>normalizeReport(d.id,d.data()));  
+  
+render();  
+renderPublicPoints();  
+setMessage("syncMessage","Firebase በተሳካ ሁኔታ ተገናኝቷል።","success");  
+}catch(error){  
+console.error(error);  
+setMessage("syncMessage","መረጃዎችን ማምጣት አልተቻለም። "+error.message,"error");  
+}  
+}  
+  
+function go(page){  
+document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));  
+el(page).classList.remove("hidden");  
+document.querySelectorAll(".tab").forEach(b=>{  
+b.classList.toggle("active",b.dataset.page===page);  
+});  
+render();  
+window.scrollTo({top:0,behavior:"smooth"});  
+}  
+  
+document.querySelectorAll(".tab").forEach(button=>{  
+button.addEventListener("click",()=>go(button.dataset.page));  
+});  
+  
+el("pointForm").addEventListener("submit",async e=>{  
+e.preventDefault();  
+if(!isAdmin())return;  
+  
+const name=el("pointName").value.trim();  
+const area=el("pointArea").value.trim();  
+  
+if(points.some(p=>p.name.toLowerCase()===name.toLowerCase())){  
+alert("ይህ የውሃ ነጥብ አስቀድሞ ተመዝግቧል።");  
+return;  
+}  
+  
+const point={  
+name,  
+area,  
+type:el("pointType").value,  
+status:el("pointStatus").value,  
+createdAt:new Date().toISOString()  
+};  
+  
+try{  
+const result=await addDoc(collection(db,"water_points"),point);  
+points.push({...point,id:result.id});  
+e.target.reset();  
+render();  
+renderPublicPoints();  
+alert("የውሃ ነጥቡ ተመዝግቧል።");  
+}catch(error){  
+alert("ማስቀመጥ አልተቻለም። "+error.code);  
+}  
+});  
+  
+function renderDashboard(){  
+el("totalPoints").textContent=points.length;  
+el("workingPoints").textContent=points.filter(p=>p.status==="working").length;  
+el("brokenPoints").textContent=points.filter(p=>p.status==="broken").length;  
+el("openReports").textContent=reports.filter(r=>r.status!=="fixed").length;  
+  
+el("overviewText").textContent=  
+"ጠቅላላ "+reports.length+" ሪፖርቶች ተመዝግበዋል። "+  
+"የተጠናቀቁ ጥገናዎች "+reports.filter(r=>r.status==="fixed").length+" ናቸው።";  
+  
+const recent=reports.slice().sort((a,b)=>  
+new Date(b.createdAt)-new Date(a.createdAt)  
+).slice(0,3);  
+  
+el("recentReports").innerHTML=recent.length?recent.map(r=>`  
+<div class="card">  
+<div class="row"><strong>${escapeHTML(r.issue)}</strong>  
+<span class="badge ${statusClass[r.status]||"info"}">${statusNames[r.status]||"ያልታወቀ"}</span></div>  
+<div class="muted">${escapeHTML(r.pointName)} · ${dateText(r.createdAt)}</div>  
+</div>`).join(""):'<div class="empty">ሪፖርት የለም።</div>';  
+}  
+  
+function renderPoints(){  
+const list=el("pointsList");  
+if(!points.length){  
+list.innerHTML='<div class="empty">የውሃ ነጥብ የለም።</div>';  
+return;  
+}  
+  
+list.innerHTML=points.map(p=>{  
+const badge=p.status==="working"?  
+'<span class="badge good">በሥራ ላይ</span>':  
+p.status==="broken"?  
+'<span class="badge bad">ችግር አለ</span>':  
+'<span class="badge wait">አልተረጋገጠም</span>';  
+  
+return `<div class="card">  
+<div class="row"><h3>${escapeHTML(p.name)}</h3>${badge}</div>  
+<div class="muted">  
+📍 ${escapeHTML(p.area)}<br>  
+አይነት፦ ${escapeHTML(p.type)}<br>  
+የተመዘገበበት፦ ${dateText(p.createdAt)}  
+</div>  
+</div>`;  
+}).join("");  
+}  
+  
+function renderReports(){  
+const filter=el("filterStatus").value;  
+const filtered=reports.filter(r=>filter==="all"||r.status===filter);  
+  
+if(!filtered.length){  
+el("reportsList").innerHTML='<div class="empty">ሪፖርት የለም።</div>';  
+return;  
+}  
+  
+el("reportsList").innerHTML=filtered.map(r=>`  
+<div class="card report">  
+<div class="row"><h3>${escapeHTML(r.issue)}</h3>  
+<span class="badge ${statusClass[r.status]||"info"}">${statusNames[r.status]||"ያልታወቀ"}</span></div>  
+<div class="muted">  
+የውሃ ነጥብ፦ ${escapeHTML(r.pointName)}<br>  
+ቀን፦ ${dateText(r.createdAt)}<br>  
+አስቸኳይነት፦ ${r.priority==="high"?"ከፍተኛ":r.priority==="medium"?"መካከለኛ":"ዝቅተኛ"}<br>  
+ሪፖርት አቅራቢ፦ ${escapeHTML(r.reporter||"አልተገለጸም")}  
+</div>  
+<p>${escapeHTML(r.description)}</p>  
+<label>የሪፖርት ሁኔታ ቀይር</label>  
+<select onchange="changeStatus('${escapeHTML(r.id)}',this.value)">  
+${Object.entries(statusNames).map(([key,name])=>  
+`<option value="${key}" ${r.status===key?"selected":""}>${name}</option>`  
+).join("")}  
+</select>  
+${isAdmin()?`<div class="actions">  
+<button class="secondary danger" onclick="deleteReport('${escapeHTML(r.id)}')">ሪፖርት አጥፋ</button>  
+</div>`:""}  
+</div>`).join("");  
+}  
+  
+function renderHistory(){  
+const fixed=reports.filter(r=>r.status==="fixed");  
+el("historyList").innerHTML=fixed.length?fixed.map(r=>`  
+<div class="card">  
+<span class="badge good">ተጠናቋል</span>  
+<h3>${escapeHTML(r.pointName)}</h3>  
+<div class="muted">  
+ችግር፦ ${escapeHTML(r.issue)}<br>  
+ሪፖርት፦ ${dateText(r.createdAt)}<br>  
+የመጨረሻ ማሻሻያ፦ ${dateText(r.updatedAt)}  
+</div>  
+</div>`).join(""):'<div class="empty">የተጠናቀቀ ጥገና የለም።</div>';  
+}  
+  
+window.changeStatus=async function(id,value){  
+if(!currentUser||!["new","checking","repair","fixed"].includes(value))return;  
+  
+const report=reports.find(r=>r.id===id);  
+if(!report)return;  
+  
+const oldStatus=report.status;  
+const oldUpdated=report.updatedAt;  
+report.status=value;  
+report.updatedAt=new Date().toISOString();  
+  
+try{  
+await updateDoc(doc(db,"reports",id),{  
+status:value,  
+updatedAt:report.updatedAt  
+});  
+  
+const point=points.find(p=>p.id===report.pointId);  
+if(point&&report.issue!=="የውሃ ጥራት ጥርጣሬ"){  
+const otherOpen=reports.some(r=>  
+r.pointId===point.id&&r.id!==id&&r.status!=="fixed"  
+);  
+const nextStatus=value==="fixed"&&!otherOpen?"working":"broken";  
+await updateDoc(doc(db,"water_points",point.id),{status:nextStatus});  
+point.status=nextStatus;  
+}  
+  
+render();  
+renderPublicPoints();  
+setMessage("syncMessage","የሪፖርት ሁኔታ ተሻሽሏል።","success");  
+}catch(error){  
+report.status=oldStatus;  
+report.updatedAt=oldUpdated;  
+render();  
+setMessage("syncMessage","ሁኔታውን ማዘመን አልተቻለም። "+error.code,"error");  
+}  
+};  
+  
+window.deleteReport=async function(id){  
+if(!isAdmin())return;  
+if(!confirm("ይህን ሪፖርት ማጥፋት ትፈልጋለህ?"))return;  
+  
+try{  
+await deleteDoc(doc(db,"reports",id));  
+reports=reports.filter(r=>r.id!==id);  
+render();  
+setMessage("syncMessage","ሪፖርቱ ተሰርዟል።","success");  
+}catch(error){  
+setMessage("syncMessage","ማጥፋት አልተቻለም። "+error.code,"error");  
+}  
+};  
+  
+el("filterStatus").addEventListener("change",renderReports);  
+  
+function render(){  
+renderDashboard();  
+renderPoints();  
+renderReports();  
+renderHistory();  
+}  
+  
+</script>  </body>  
+</html>  
